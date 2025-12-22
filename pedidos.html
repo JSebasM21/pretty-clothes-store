@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rastrear Pedido - pretty clothes store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar-sticky">
+        <div class="navbar-container">
+            <div class="nav-row-top">
+                <a href="index.html" class="nav-logo">
+                    <div class="logo-circle">FL</div>
+                    <span class="logo-text">pretty clothes store</span>
+                </a>
+                <ul class="nav-main-links">
+                    <li><a href="index.html">Tienda</a></li>
+                    <li><a href="login.html">Mi Cuenta</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="tracking-container">
+        <h1 style="text-align:center; color:#e63946; margin-bottom:20px;">
+            📦 Rastrear Mi Pedido
+        </h1>
+        
+        <p style="text-align:center; color:#666; margin-bottom:30px;">
+            Ingresa tu código de pedido para ver el estado actual
+        </p>
+
+        <form id="tracking-form">
+            <div class="form-group">
+                <label>Código de Pedido</label>
+                <input 
+                    type="text" 
+                    id="codigo-pedido" 
+                    placeholder="Ej: FL12345678" 
+                    required
+                    style="text-transform: uppercase;">
+            </div>
+            <button type="submit" class="btn-checkout">
+                🔍 BUSCAR PEDIDO
+            </button>
+        </form>
+
+        <div id="tracking-result" style="display:none;">
+            <!-- Resultado se muestra aquí -->
+        </div>
+
+        <!-- HISTORIAL DE PEDIDOS (si hay usuario logueado) -->
+        <div id="historial-pedidos" style="margin-top:50px; display:none;">
+            <h2 style="text-align:center; margin-bottom:20px;">📋 Mi Historial de Pedidos</h2>
+            <p style="text-align:center; color:#666; margin-bottom:30px;">
+                Haz clic en cualquier pedido para ver los detalles completos
+            </p>
+            <div id="historial-container"></div>
+        </div>
+        
+        <!-- MENSAJE SI NO HAY USUARIO -->
+        <div id="no-usuario-msg" style="margin-top:50px; padding:30px; background:#f8f9fa; border-radius:15px; text-align:center; display:none;">
+            <p style="font-size:1.1rem; color:#666; margin-bottom:15px;">
+                💡 <strong>¿Quieres ver tu historial completo?</strong>
+            </p>
+            <p style="color:#666; margin-bottom:20px;">
+                Crea una cuenta o inicia sesión para acceder a tu historial de pedidos, 
+                recomendaciones personalizadas y beneficios exclusivos.
+            </p>
+            <a href="login.html" class="btn-checkout" style="display:inline-block; text-decoration:none; max-width:300px;">
+                Crear Cuenta / Iniciar Sesión
+            </a>
+        </div>
+    </div>
+
+    <footer class="site-footer" style="margin-top:100px;">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>pretty clothes store</h3>
+                <p>Moda experimental desde 2020</p>
+            </div>
+            <div class="footer-links">
+                <h4>Contacto</h4>
+                <a href="https://wa.me/59169078166" target="_blank">WhatsApp</a>
+                <a href="index.html#ubicacion">Ubicación</a>
+            </div>
+        </div>
+        <p class="copyright">© 2025 pretty clothes store - Santa Cruz, Bolivia</p>
+    </footer>
+
+    <script src="pedidos.js"></script>
+</body>
+</html>
