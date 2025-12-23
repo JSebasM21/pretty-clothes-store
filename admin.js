@@ -336,7 +336,7 @@ function exportarBaseDatos() {
     const fecha = new Date().toISOString().split('T')[0];
     
     let contenido = `═══════════════════════════════════════════════════════════\n`;
-    contenido += `           FASHION LAB - BASE DE DATOS\n`;
+    contenido += `           pretty clothes store - BASE DE DATOS\n`;
     contenido += `           Fecha: ${fecha}\n`;
     contenido += `═══════════════════════════════════════════════════════════\n\n`;
     contenido += `Total de Productos: ${productos.length}\n`;
@@ -399,7 +399,7 @@ function exportarProductos() {
         contenido += `   ID: ${prod.id}\n\n`;
     });
     
-    descargarArchivo(contenido, `FashionLab_Productos_${fecha}.txt`);
+    descargarArchivo(contenido, `pretty clothes store${fecha}.txt`);
 }
 
 // === EXPORTAR PEDIDOS ===
@@ -483,3 +483,4 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
