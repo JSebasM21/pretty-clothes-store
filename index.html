@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pretty clothes store - Tienda de Ropa en Santa Cruz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+   <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pretty clothes store - Tienda de Ropa en Santa Cruz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="navbar-sticky" id="navbar">
+    <div class="navbar-container">
+        <div class="nav-row-top">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-circle">FL</div>
+                <span class="logo-text">pretty clothes store</span>
+            </a>
+
+            <button class="hamburger" id="hamburger-btn">
+                <span></span><span></span><span></span>
+            </button>
+
+            <ul class="nav-main-links" id="nav-menu">
+                <li><a href="#hero">INICIO</a></li>
+                <li><a href="#productos">TIENDA</a></li>
+                <li><a href="nosotros.html">NOSOTROS</a></li>
+                <li><a href="pedidos.html">MIS PEDIDOS</a></li>
+
+                <!-- 🔹 MENÚ DE USUARIO -->
+                <li class="user-menu" id="user-menu" style="display:none;">
+                    <a href="javascript:void(0)" id="user-btn">👤 Usuario</a>
+                    <div class="user-dropdown" id="user-dropdown">
+                        <p><strong id="user-name"></strong></p>
+                        <p id="user-email"></p>
+                        <p id="user-role"></p>
+                        <hr>
+                        <a href="#" onclick="cerrarSesion()">🚪 Cerrar sesión</a>
+                    </div>
+                </li>
+
+                <!-- 🔹 LOGIN PARA INVITADOS -->
+                <li><a href="login.html" id="auth-link">INICIAR SESIÓN</a></li>
+
+                <li><a href="dashboard.html" id="admin-link" style="display:none;">DASHBOARD</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <div class="cart-floating-btn" onclick="toggleCart()" role="button" aria-label="Ver carrito">
+        <span id="cart-count">0</span>
+        <span style="font-size: 1.5rem;">🛒</span>
+    </div>
+
+    <aside id="cart-drawer" class="cart-drawer">
+        <div class="cart-header">
+            <h2>TU CARRITO</h2>
+            <button class="close-cart" onclick="toggleCart()">✕</button>
+        </div>
+        
+        <div id="cart-items-container" class="cart-items-container">
+            <p class="empty-cart-msg">Tu carrito está vacío...</p>
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-amount">0 Bs</span>
+            </div>
+            <button class="btn-checkout" onclick="mostrarFormularioEnvio()">PROCEDER AL PAGO</button>
+        </div>
+    </aside>
+
+    <main>
+        <!-- HERO SECTION ESTILO VIRTUX -->
+        <section id="hero" class="hero-virtux">
+            <div class="hero-virtux-content">
+                <div class="hero-text-side">
+                    <h1 class="hero-main-title">
+                        LA MEJOR TIENDA DE<br>
+                        ROPA EN<br>
+                        <span class="text-green">SANTA CRUZ</span>
+                    </h1>
+                    <p class="hero-description">
+                       pretty clothes store es el destino preferido para los amantes de la moda y el estilo. 
+                        Ofrecemos ropa de calidad con diseños únicos para toda la familia.
+                    </p>
+                    <a href="#productos" class="btn-explore">Explora nuestra tienda</a>
+                </div>
+                <div class="hero-image-side">
+                    <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=1000" alt="Fashion Lab" class="hero-main-image">
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE CATEGORÍAS -->
+        <section class="categories-section">
+            <h2 class="section-title-center">OFRECEMOS ROPA PARA TODA LA FAMILIA</h2>
+            
+            <div class="categories-grid">
+                <div class="category-card" onclick="filterMenu('mujer')">
+                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600" alt="Ropa Mujer">
+                    <div class="category-info">
+                        <h3>ROPA MUJER</h3>
+                        <p>Vestidos, blusas, jeans y más con estilo único</p>
+                    </div>
+                </div>
+
+                <div class="category-card" onclick="filterMenu('hombre')">
+                    <img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?q=80&w=600" alt="Ropa Hombre">
+                    <div class="category-info">
+                        <h3>ROPA HOMBRE</h3>
+                        <p>Camisas, pantalones y accesorios de calidad premium</p>
+                    </div>
+                </div>
+
+                <div class="category-card" onclick="filterMenu('ninos')">
+                    <img src="https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?q=80&w=600" alt="Ropa Niños">
+                    <div class="category-info">
+                        <h3>ROPA NIÑOS</h3>
+                        <p>Diseños divertidos y cómodos para los más pequeños</p>
+                    </div>
+                </div>
+
+                <div class="category-card" onclick="filterMenu('accesorios')">
+                    <img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?q=80&w=600" alt="Accesorios">
+                    <div class="category-info">
+                        <h3>ACCESORIOS</h3>
+                        <p>Bolsos, gafas y complementos para completar tu look</p>
+                    </div>
+                </div>
+
+                <div class="category-card" onclick="filterMenu('ofertas')">
+                    <img src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?q=80&w=600" alt="Ofertas">
+                    <div class="category-info">
+                        <h3>OFERTAS ESPECIALES</h3>
+                        <p>Descuentos increíbles en productos seleccionados</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INFORMACIÓN DE TALLAS -->
+        <section class="tallas-section">
+            <h2 class="section-title-center">GUÍA DE TALLAS</h2>
+            <div class="tallas-container">
+                <div class="talla-card">
+                    <h3>👕 ROPA MUJER Y HOMBRE</h3>
+                    <ul>
+                        <li><strong>S</strong> - Small (Pequeña)</li>
+                        <li><strong>M</strong> - Medium (Mediana)</li>
+                        <li><strong>L</strong> - Large (Grande)</li>
+                        <li><strong>XL</strong> - Extra Large (Extra Grande)</li>
+                    </ul>
+                </div>
+                <div class="talla-card">
+                    <h3>👶 ROPA NIÑOS</h3>
+                    <ul>
+                        <li><strong>4-6 años</strong></li>
+                        <li><strong>8-10 años</strong></li>
+                        <li><strong>12-14 años</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCTOS -->
+        <section id="productos" class="menu-section">
+            <div class="menu-header">
+                <h2 class="section-title">NUESTRA TIENDA 👗</h2>
+            </div>
+
+            <div class="filter-controls">
+                <button class="filter-btn active" onclick="filterMenu('all')">Todo</button>
+                <button class="filter-btn" onclick="filterMenu('mujer')">Mujer</button>
+                <button class="filter-btn" onclick="filterMenu('hombre')">Hombre</button>
+                <button class="filter-btn" onclick="filterMenu('ninos')">Niños</button>
+                <button class="filter-btn" onclick="filterMenu('accesorios')">Accesorios</button>
+                <button class="filter-btn" onclick="filterMenu('ofertas')">Ofertas</button>
+            </div>
+
+            <div class="products-grid-container" id="products-grid">
+                <!-- Los productos se cargan dinámicamente -->
+            </div>
+        </section>
+    </main>
+
+    <footer id="contacto" class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>pretty clothes store</h3>
+                <p>Moda experimental desde 2020</p>
+                <p style="margin-top:15px; font-size:0.9rem;">📍 Bloque B, Feria Barrio Lindo<br>Santa Cruz de la Sierra, Bolivia</p>
+            </div>
+            <div class="footer-links">
+                <h4>Enlaces Rápidos</h4>
+                <a href="https://www.instagram.com/fashionlab" target="_blank">Instagram</a>
+                <a href="https://www.facebook.com/fashionlab" target="_blank">Facebook</a>
+                <a href="https://wa.me/59169078166" target="_blank">WhatsApp</a>
+                <a href="pedidos.html">Rastrear Pedido</a>
+            </div>
+        </div>
+        <p class="copyright">© 2025 pretty clothes store - Santa Cruz, Bolivia</p>
+    </footer>
+
+    <!-- MODAL DE PRODUCTO -->
+    <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-body">
+                <div class="modal-img-container">
+                    <img id="modal-img" src="" alt="Producto">
+                    <div id="stock-badge" class="stock-badge"></div>
+                </div>
+                <div class="modal-text">
+                    <h2 id="modal-title"></h2>
+                    <p id="modal-description"></p>
+                    <h3 id="modal-price"></h3>
+                    
+                    <div class="size-selector">
+                        <label>Talla:</label>
+                        <select id="size-select">
+                            <option value="S">S</option>
+                            <option value="M" selected>M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                    </div>
+
+                    <div class="quantity-selector">
+                        <label>Cantidad:</label>
+                        <button onclick="changeModalQuantity(-1)">-</button>
+                        <span id="modal-quantity">1</span>
+                        <button onclick="changeModalQuantity(1)">+</button>
+                    </div>
+                    
+                    <p id="stock-warning" style="color:#ff9800; font-size:0.9rem; margin:10px 0; display:none;">
+                        ⚠️ Solo quedan <span id="stock-remaining"></span> unidades
+                    </p>
+                    
+                    <button class="btn-checkout" id="btn-add-to-cart">
+                        AÑADIR AL CARRITO
+                    </button>
+                    
+                    <button class="btn-cerrar-modal" onclick="closeModal()">
+                        Volver a la tienda
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE DATOS DE ENVÍO -->
+    <div id="envio-modal" class="modal-overlay">
+        <div class="envio-modal-content" onclick="event.stopPropagation()">
+            <h2>📦 Datos de Envío</h2>
+            <p style="color:#666; margin-bottom:20px;">Completa tus datos para continuar</p>
+            
+            <form id="envio-form">
+                <div class="form-group">
+                    <label>Nombre Completo *</label>
+                    <input type="text" id="envio-nombre" required placeholder="Juan Pérez">
+                </div>
+                
+                <div class="form-group">
+                    <label>Dirección Completa *</label>
+                    <textarea id="envio-direccion" required placeholder="Calle, número, zona, referencias..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Número de Teléfono *</label>
+                    <input type="tel" id="envio-telefono" required placeholder="69078166">
+                </div>
+                
+                <div class="form-group">
+                    <label>Link de Ubicación WhatsApp (Opcional)</label>
+                    <input type="url" id="envio-ubicacion" placeholder="https://maps.google.com/...">
+                </div>
+
+                <div class="form-group">
+                    <label>Método de Pago *</label>
+                    <select id="metodo-pago" required>
+                        <option value="">Selecciona método de pago</option>
+                        <option value="qr">💳 Pago por QR</option>
+                        <option value="efectivo">💵 Pago en Efectivo (contraentrega)</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn-checkout">
+                    CONTINUAR
+                </button>
+                
+                <button type="button" class="btn-cerrar-modal" onclick="cerrarFormularioEnvio()">
+                    Cancelar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE QR -->
+    <div id="qr-modal" class="modal-overlay" onclick="closeQRModal()">
+        <div class="qr-modal-content" onclick="event.stopPropagation()">
+            <h2>Escanea para pagar</h2>
+            <div id="qr-container"></div>
+            <h3 id="qr-amount"></h3>
+            <p>Escanea este código QR con tu app de pago</p>
+            <button class="btn-checkout" onclick="simularPago()">YA PAGUÉ - VERIFICAR</button>
+            <button class="btn-cerrar-modal" onclick="closeQRModal()">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- MODAL DE CONFIRMACIÓN MEJORADO -->
+    <div id="success-modal" class="modal-overlay">
+        <div class="success-modal-content" onclick="event.stopPropagation()">
+            <div class="success-icon">✅</div>
+            <h2>¡Pago Verificado!</h2>
+            <div class="success-details">
+                <p><strong>Código de pedido:</strong></p>
+                <div class="codigo-box">
+                    <span id="codigo-pedido-display"></span>
+                    <button onclick="copiarCodigo()" class="btn-copy">📋 Copiar</button>
+                </div>
+                <p style="margin-top:20px; color:#666;">Puedes rastrear tu pedido en la sección "Mis Pedidos"</p>
+            </div>
+            <button class="btn-checkout" onclick="cerrarModalExito()">Entendido</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>

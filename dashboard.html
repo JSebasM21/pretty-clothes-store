@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - pretty clothes store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar-sticky">
+        <div class="navbar-container">
+            <div class="nav-row-top">
+                <a href="index.html" class="nav-logo">
+                    <div class="logo-circle">FL</div>
+                    <span class="logo-text">pretty clothes store</span>
+                </a>
+                <ul class="nav-main-links">
+                    <li><a href="index.html">Tienda</a></li>
+                    <li><a href="#" onclick="cerrarSesion()">Cerrar Sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>📊 Panel de Administración</h1>
+            <p>Gestiona productos, pedidos y estadísticas</p>
+        </div>
+
+        <!-- ESTADÍSTICAS -->
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <h3 id="stat-productos">0</h3>
+                <p>Productos Activos</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="stat-pedidos">0</h3>
+                <p>Pedidos Totales</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="stat-ventas">0 Bs</h3>
+                <p>Ventas Totales</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="stat-stock-bajo">0</h3>
+                <p>Stock Bajo (≤5)</p>
+            </div>
+        </div>
+
+        <!-- AGREGAR PRODUCTO -->
+        <div class="dashboard-section">
+            <h2>➕ Agregar Nuevo Producto</h2>
+            <form id="producto-form" class="product-form">
+                <div class="form-group">
+                    <label>Nombre del Producto *</label>
+                    <input type="text" id="prod-nombre" required placeholder="Ej: Vestido Floral">
+                </div>
+                <div class="form-group">
+                    <label>Descripción *</label>
+                    <input type="text" id="prod-descripcion" required placeholder="Descripción breve del producto">
+                </div>
+                <div class="form-group">
+                    <label>Precio (Bs) *</label>
+                    <input type="number" id="prod-precio" required min="0" step="0.01" placeholder="250">
+                </div>
+                <div class="form-group">
+                    <label>Stock Inicial *</label>
+                    <input type="number" id="prod-stock" required min="0" step="1" placeholder="15">
+                </div>
+                <div class="form-group">
+                    <label>URL de Imagen *</label>
+                    <input type="url" id="prod-imagen" required placeholder="https://images.unsplash.com/...">
+                    <small style="color:#666; font-size:0.85rem;">Usa una URL de imagen de alta calidad</small>
+                </div>
+                <div class="form-group">
+                    <label>Categoría *</label>
+                    <select id="prod-categoria" required>
+                        <option value="">Selecciona una categoría</option>
+                        <option value="mujer">Mujer</option>
+                        <option value="hombre">Hombre</option>
+                        <option value="ninos">Niños</option>
+                        <option value="accesorios">Accesorios</option>
+                        <option value="ofertas">Ofertas</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-checkout">Agregar Producto</button>
+            </form>
+        </div>
+
+        <!-- LISTA DE PRODUCTOS -->
+        <div class="dashboard-section">
+            <h2>📦 Gestión de Productos</h2>
+            <p style="color:#666; margin-bottom:20px;">
+                💡 <strong>Tip:</strong> Usa el botón "Ocultar" para que el producto no aparezca en la tienda sin eliminarlo.
+            </p>
+            <div class="products-table" style="overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Categoría</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productos-tbody">
+                        <tr>
+                            <td colspan="7" style="text-align:center; padding:40px; color:#666;">
+                                Cargando productos...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- PEDIDOS RECIENTES -->
+        <div class="dashboard-section">
+            <h2>🛒 Gestión de Pedidos</h2>
+            <p style="color:#666; margin-bottom:20px;">
+                💡 <strong>Estados de Pago:</strong><br>
+                • <span style="color:#ff9800;">Pago Pendiente:</span> El cliente aún no ha pagado<br>
+                • <span style="color:#4CAF50;">Pago Verificado:</span> Pago QR confirmado<br>
+                • <span style="color:#2196F3;">Pago Realizado:</span> Efectivo recibido al entregar
+            </p>
+            <div class="products-table" style="overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Cliente</th>
+                            <th>Fecha</th>
+                            <th>Total</th>
+                            <th>Estado Pedido</th>
+                            <th>Estado Pago</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pedidos-tbody">
+                        <tr>
+                            <td colspan="7" style="text-align:center; padding:40px; color:#666;">
+                                Cargando pedidos...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- EXPORTAR BASE DE DATOS -->
+        <div class="dashboard-section">
+            <h2>💾 Gestión de Base de Datos</h2>
+            <p style="color:#666; margin-bottom:20px;">
+                Exporta tu información en formato .txt para tener un respaldo de tu inventario y ventas
+            </p>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:15px;">
+                <button onclick="exportarBaseDatos()" class="btn-checkout">
+                    📥 Descargar Base de Datos Completa
+                </button>
+                <button onclick="exportarProductos()" class="btn-checkout" style="background:#457b9d;">
+                    📋 Exportar Solo Productos
+                </button>
+                <button onclick="exportarPedidos()" class="btn-checkout" style="background:#2a9d8f;">
+                    📦 Exportar Solo Pedidos
+                </button>
+            </div>
+            <div style="margin-top:20px; padding:20px; background:#f8f9fa; border-radius:10px;">
+                <p style="margin:0; color:#666; font-size:0.95rem;">
+                    <strong>📌 Importante:</strong> Los archivos .txt son compatibles con cualquier editor de texto 
+                    y pueden abrirse en Windows (Bloc de notas), Mac (TextEdit) o Linux (gedit, nano, etc.)
+                </p>
+            </div>
+        </div>
+
+        <!-- AYUDA RÁPIDA -->
+        <div class="dashboard-section" style="background:#e3f2fd; border-left:4px solid #2196F3;">
+            <h2>❓ Ayuda Rápida</h2>
+            <div style="display:grid; gap:15px;">
+                <details style="background:white; padding:15px; border-radius:8px;">
+                    <summary style="cursor:pointer; font-weight:600; color:#1d3557;">¿Cómo edito el stock de un producto?</summary>
+                    <p style="margin-top:10px; color:#666;">Haz clic en el botón "📦 Stock" del producto y escribe el nuevo valor.</p>
+                </details>
+                <details style="background:white; padding:15px; border-radius:8px;">
+                    <summary style="cursor:pointer; font-weight:600; color:#1d3557;">¿Qué hace el botón "Ocultar"?</summary>
+                    <p style="margin-top:10px; color:#666;">Oculta el producto de la tienda sin eliminarlo. Puedes volver a mostrarlo cuando quieras.</p>
+                </details>
+                <details style="background:white; padding:15px; border-radius:8px;">
+                    <summary style="cursor:pointer; font-weight:600; color:#1d3557;">¿Cuándo marco "Pago Realizado"?</summary>
+                    <p style="margin-top:10px; color:#666;">Cuando entregas el pedido y recibes el efectivo del cliente (solo para pagos en efectivo).</p>
+                </details>
+                <details style="background:white; padding:15px; border-radius:8px;">
+                    <summary style="cursor:pointer; font-weight:600; color:#1d3557;">¿Cómo copio el ID de un producto?</summary>
+                    <p style="margin-top:10px; color:#666;">Haz clic en el botón "📋 ID" y se copiará automáticamente al portapapeles.</p>
+                </details>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer" style="margin-top:60px;">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>FASHION LAB</h3>
+                <p>Panel de Administración</p>
+            </div>
+            <div class="footer-links">
+                <h4>Enlaces Útiles</h4>
+                <a href="index.html">Ver Tienda</a>
+                <a href="pedidos.html">Sistema de Pedidos</a>
+                <a href="#" onclick="cerrarSesion()">Cerrar Sesión</a>
+            </div>
+        </div>
+        <p class="copyright">© 2025 pretty clothes store - Dashboard Admin</p>
+    </footer>
+
+    <script src="admin.js"></script>
+</body>
+</html>

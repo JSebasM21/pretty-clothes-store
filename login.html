@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - pretty clothes store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="navbar-sticky">
+    <div class="navbar-container">
+        <div class="nav-row-top">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-circle">FL</div>
+                <span class="logo-text">pretty clothes store</span>
+            </a>
+            <ul class="nav-main-links">
+                <li><a href="index.html">Volver a la Tienda</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="auth-container">
+    <h1>👤 Bienvenido</h1>
+
+    <div class="auth-tabs">
+        <button class="active" onclick="cambiarTab('login')">Iniciar Sesión</button>
+        <button onclick="cambiarTab('registro')">Registrarse</button>
+    </div>
+
+    <!-- LOGIN -->
+    <form id="login-form" style="display:block;">
+        <div class="form-group">
+            <label>Correo Electrónico</label>
+            <input type="email" id="login-email" required style="text-transform: lowercase;">
+        </div>
+        <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" id="login-password" required>
+        </div>
+        <button type="submit" class="btn-checkout">Ingresar</button>
+    </form>
+
+    <!-- REGISTRO -->
+    <form id="registro-form" style="display:none;">
+        <div class="form-group">
+            <label>Nombre Completo</label>
+            <input type="text" id="reg-nombre" required>
+        </div>
+        <div class="form-group">
+            <label>Correo Electrónico</label>
+            <input type="email" id="reg-email" required style="text-transform: lowercase;">
+        </div>
+        <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" id="reg-password" required minlength="6">
+        </div>
+        <div class="form-group">
+            <label>Confirmar Contraseña</label>
+            <input type="password" id="reg-password-confirm" required>
+        </div>
+        <button type="submit" class="btn-checkout">Crear Cuenta</button>
+    </form>
+</div>
+
+<script>
+/* ===============================
+   VALIDACIÓN FUERTE DE CORREO
+   =============================== */
+
+// dominios permitidos (puedes agregar o quitar)
+const DOMINIOS_PERMITIDOS = [
+    "gmail.com",
+    "hotmail.com",
+    "outlook.com",
+    "yahoo.com",
+    "yahoo.es",
+    "icloud.com"
+];
+
+function emailValido(email) {
+    const regex = /^[a-z0-9._%+-]+@([a-z0-9-]+\.)+[a-z]{2,}$/;
+    if (!regex.test(email)) return false;
+
+    const dominio = email.split("@")[1];
+    return DOMINIOS_PERMITIDOS.includes(dominio);
+}
+
+// Tabs
+function cambiarTab(tipo) {
+    document.getElementById('login-form').style.display = tipo === 'login' ? 'block' : 'none';
+    document.getElementById('registro-form').style.display = tipo === 'registro' ? 'block' : 'none';
+}
+
+// LOGIN
+document.getElementById('login-form').addEventListener('submit', e => {
+    e.preventDefault();
+
+    const email = document.getElementById('login-email').value.trim().toLowerCase();
+    const password = document.getElementById('login-password').value;
+
+    if (!emailValido(email)) {
+        alert("❌ Correo no permitido. Usa Gmail, Hotmail, Outlook, Yahoo o iCloud.");
+        return;
+    }
+
+    if (email === "admin@gmail.com" && password === "admin123") {
+        localStorage.setItem("usuario", JSON.stringify({ nombre: "Administrador", email, esAdmin: true }));
+        window.location.href = "dashboard.html";
+        return;
+    }
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || {};
+    if (usuarios[email] && usuarios[email].password === password) {
+        localStorage.setItem("usuario", JSON.stringify({ nombre: usuarios[email].nombre, email, esAdmin: false }));
+        window.location.href = "index.html";
+    } else {
+        alert("❌ Credenciales incorrectas");
+    }
+});
+
+// REGISTRO
+document.getElementById('registro-form').addEventListener('submit', e => {
+    e.preventDefault();
+
+    const nombre = document.getElementById('reg-nombre').value;
+    const email = document.getElementById('reg-email').value.trim().toLowerCase();
+    const password = document.getElementById('reg-password').value;
+    const confirm = document.getElementById('reg-password-confirm').value;
+
+    if (!emailValido(email)) {
+        alert("❌ Correo no permitido. Usa Gmail, Hotmail, Outlook, Yahoo o iCloud.");
+        return;
+    }
+
+    if (password !== confirm) {
+        alert("❌ Las contraseñas no coinciden");
+        return;
+    }
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || {};
+    if (usuarios[email]) {
+        alert("❌ Este correo ya está registrado");
+        return;
+    }
+
+    usuarios[email] = { nombre, password };
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+    localStorage.setItem("usuario", JSON.stringify({ nombre, email, esAdmin: false }));
+    window.location.href = "index.html";
+});
+</script>
+
+</body>
+</html>
